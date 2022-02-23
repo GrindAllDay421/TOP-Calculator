@@ -16,3 +16,8 @@
   height: auto;
   width: 25px;
 }
+
+.display {
+  background-color: gray;
+  color: white;
+}

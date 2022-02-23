@@ -1,0 +1,18 @@
+.container {
+  display: grid;
+}
+
+.numbers {
+  height: auto;
+  width: 25px;
+}
+
+.operators {
+  height: auto;
+  width: 25px;
+}
+
+#zero {
+  height: auto;
+  width: 25px;
+}

@@ -31,10 +31,28 @@ const operate = function(operator, num1, num2) {
   }
 }
 
+const ops = document.querySelectorAll('.operator');
+let displayValue = document.querySelector('.displayText');
 const nums = document.querySelectorAll('.number');
+let number1;
+
+const numClicked = function() {
+  console.log(typeof number1);
+  
+  let newDisplay = document.createTextNode(this.textContent);
+  displayValue.appendChild(newDisplay);
+}
+
+const lockNum = function() {
+  number1 = parseInt(displayValue.textContent, 10);
+  displayValue.textContent = '';
+  //console.log(typeof numberA);
+}
+
+for (i of ops) {
+   i.addEventListener('click', lockNum);
+ }
 
 for (i of nums) {
-  i.addEventListener('click', function() {
-    console.log(this.textContent);
-  });
+  i.addEventListener('click', numClicked);
 }

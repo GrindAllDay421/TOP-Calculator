@@ -30,3 +30,11 @@ const operate = function(operator, num1, num2) {
       break;
   }
 }
+
+const nums = document.querySelectorAll('.number');
+
+for (i of nums) {
+  i.addEventListener('click', function() {
+    console.log(this.textContent);
+  });
+}

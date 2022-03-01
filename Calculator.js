@@ -18,7 +18,6 @@ const operate = function(operator, num1, num2) {
   switch(operator) {
     case '+':
       return add(num1, num2);
-      console.log('test');
       break;
     case '-':
       return subtract(num1, num2);
@@ -36,6 +35,7 @@ const ops = document.querySelectorAll('.operator');
 let displayValue = document.querySelector('.displayText');
 const nums = document.querySelectorAll('.number');
 const equals = document.querySelector('.equals');
+const clear = document.querySelector('.clear');
 let opSelected = false;
 let number1;
 let number2;
@@ -56,6 +56,15 @@ const lockNum = function() {
   opSelected = true;
   currentOp = this.textContent;
 }
+
+clear.addEventListener('click', () => {
+  number1 = undefined;
+  number2 = undefined;
+  currentOp = undefined;
+  result = undefined;
+  displayValue.textContent = '';
+  opSelected = false;
+});
 
 equals.addEventListener('click', () => {
   number2 = Number(displayValue.textContent);

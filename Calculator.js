@@ -18,16 +18,12 @@ const operate = function(operator, num1, num2) {
   switch(operator) {
     case '+':
       return add(num1, num2);
-      break;
     case '-':
       return subtract(num1, num2);
-      break;
     case '*':
       return multiply(num1, num2);
-      break;
     case '/':
       return divide(num1, num2);
-      break;
   }
 }
 
@@ -40,7 +36,6 @@ let opSelected = false;
 let number1;
 let number2;
 let currentOp;
-let result;
 
 const numClicked = function() {
   if (opSelected === true) {
@@ -52,16 +47,28 @@ const numClicked = function() {
 }
 
 const lockNum = function() {
-  number1 = Number(displayValue.textContent);
   opSelected = true;
-  currentOp = this.textContent;
+
+  if(number1 === undefined) {
+    number1 = Number(displayValue.textContent);
+    currentOp = this.textContent;
+  } else if(number1 !== undefined && number2 === undefined) {
+    number2 = Number(displayValue.textContent);
+    // number2 = undefined;
+    // currentOp = this.textContent;
+  }
+  if(number1 !== undefined && number2 !== undefined) {
+    number1 = operate(currentOp, number1, number2);
+    displayValue.textContent = number1;
+    number2 = undefined;
+    currentOp = this.textContent;
+  }
 }
 
 clear.addEventListener('click', () => {
   number1 = undefined;
   number2 = undefined;
   currentOp = undefined;
-  result = undefined;
   displayValue.textContent = '';
   opSelected = false;
 });
@@ -70,6 +77,7 @@ equals.addEventListener('click', () => {
   number2 = Number(displayValue.textContent);
   number1 = operate(currentOp, number1, number2);
   displayValue.textContent = number1;
+  number2 = undefined;
 });
 
 for (i of ops) {

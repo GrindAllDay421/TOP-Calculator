@@ -54,8 +54,6 @@ const lockNum = function() {
     currentOp = this.textContent;
   } else if(number1 !== undefined && number2 === undefined) {
     number2 = Number(displayValue.textContent);
-    // number2 = undefined;
-    // currentOp = this.textContent;
   }
   if(number1 !== undefined && number2 !== undefined) {
     number1 = operate(currentOp, number1, number2);

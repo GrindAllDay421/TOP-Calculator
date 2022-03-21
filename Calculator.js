@@ -33,6 +33,7 @@ const nums = document.querySelectorAll('.number');
 const equals = document.querySelector('.equals');
 const clear = document.querySelector('.clear');
 let opSelected = false;
+let equationReady = false;
 let number1;
 let number2;
 let currentOp;
@@ -40,27 +41,31 @@ let currentOp;
 const numClicked = function() {
   if (opSelected === true) {
     displayValue.textContent = '';
+    equationReady = true;
     opSelected = false;
   }
   let newDisplay = document.createTextNode(this.textContent);
   displayValue.appendChild(newDisplay);
 }
 
-const lockNum = function() {
+const operatorClick = function() {
   opSelected = true;
 
   if(number1 === undefined) {
     number1 = Number(displayValue.textContent);
     currentOp = this.textContent;
-  } else if(number1 !== undefined && number2 === undefined) {
+  } else if(equationReady === true) {
     number2 = Number(displayValue.textContent);
-  }
-  if(number1 !== undefined && number2 !== undefined) {
     number1 = operate(currentOp, number1, number2);
     displayValue.textContent = number1;
     number2 = undefined;
+    equationReady = false;
     currentOp = this.textContent;
   }
+  
+  if(number2 === undefined && currentOp === undefined) {
+    currentOp = this.textContent;
+  } 
 }
 
 clear.addEventListener('click', () => {
@@ -69,17 +74,23 @@ clear.addEventListener('click', () => {
   currentOp = undefined;
   displayValue.textContent = '';
   opSelected = false;
+  equationReady = false;
 });
 
 equals.addEventListener('click', () => {
-  number2 = Number(displayValue.textContent);
-  number1 = operate(currentOp, number1, number2);
-  displayValue.textContent = number1;
-  number2 = undefined;
+  if(equationReady === true) {
+    number2 = Number(displayValue.textContent);
+    number1 = operate(currentOp, number1, number2);
+    displayValue.textContent = number1;
+    number2 = undefined;
+    currentOp = undefined;
+    opSelected = false;
+    equationReady = false;
+  }
 });
 
 for (i of ops) {
-   i.addEventListener('click', lockNum);
+   i.addEventListener('click', operatorClick);
  }
 
 for (i of nums) {

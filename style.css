@@ -10,12 +10,17 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
-  width: 600px;
-  height: 800px;
-  margin: auto;
+  width: 400px;
+  height: 600px;
+  margin: 0;
   padding: 15px;
   background-color: rgb(75, 75, 75);
   border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 button {
@@ -127,8 +132,9 @@ button {
   background-color: rgb(184, 184, 184);
   color: white;
   align-self: center;
-  margin: 1em;
-  height: 5em;
+  width: 100%;
+  margin: auto;
+  height: 7em;
   border-radius: 10px;
   grid-column: 1 / 5;
   grid-row: 1;

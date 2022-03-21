@@ -56,11 +56,16 @@ const operatorClick = function() {
     currentOp = this.textContent;
   } else if(equationReady === true) {
     number2 = Number(displayValue.textContent);
+
+    if(number2 === 0 && currentOp === '/') {
+      displayValue.textContent = 'nope';
+    } else {
     number1 = operate(currentOp, number1, number2);
     displayValue.textContent = number1;
     number2 = undefined;
     equationReady = false;
     currentOp = this.textContent;
+    }
   }
   
   if(number2 === undefined && currentOp === undefined) {
@@ -80,12 +85,17 @@ clear.addEventListener('click', () => {
 equals.addEventListener('click', () => {
   if(equationReady === true) {
     number2 = Number(displayValue.textContent);
+
+    if(number2 === 0 && currentOp === '/') {
+      displayValue.textContent = 'nope';
+    } else {
     number1 = operate(currentOp, number1, number2);
     displayValue.textContent = number1;
     number2 = undefined;
     currentOp = undefined;
     opSelected = false;
     equationReady = false;
+    }
   }
 });
 

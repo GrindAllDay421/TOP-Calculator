@@ -32,24 +32,37 @@ let displayValue = document.querySelector('.displayText');
 const nums = document.querySelectorAll('.number');
 const equals = document.querySelector('.equals');
 const clear = document.querySelector('.clear');
+const decimal = document.querySelector('.decimal');
 let opSelected = false;
 let equationReady = false;
+let lockNum1 = false;
 let number1;
 let number2;
 let currentOp;
 
 const numClicked = function() {
-  if (opSelected === true) {
+  if(opSelected === true) {
     displayValue.textContent = '';
     equationReady = true;
     opSelected = false;
   }
-  let newDisplay = document.createTextNode(this.textContent);
-  displayValue.appendChild(newDisplay);
-}
+  if(lockNum1 === true) {
+    if(displayValue.textContent.includes('.') === false) {
+      displayValue.textContent = '';
+    }
+    number1 = undefined;
+    lockNum1 = false;
+  }
+  let addNum = document.createTextNode(this.textContent);
+  displayValue.appendChild(addNum);
+} 
 
 const operatorClick = function() {
   opSelected = true;
+
+  if(lockNum1 === true) {
+    lockNum1 = false;
+  }
 
   if(number1 === undefined) {
     number1 = Number(displayValue.textContent);
@@ -73,6 +86,29 @@ const operatorClick = function() {
   } 
 }
 
+const addDecimal = function() {
+  // if(displayValue.textContent.includes('.') === false) {
+  //   let addDec = document.createTextNode(this.textContent);
+  //   displayValue.appendChild(addDec);
+  // } else if(number1 !== undefined) {
+  //   displayValue.textContent = '';
+  //   let addDec = document.createTextNode(this.textContent);
+  //   displayValue.appendChild(addDec);
+  // }
+
+  if(number1 !== undefined) {
+    if(Number(displayValue.textContent) === number1) {
+      displayValue.textContent = '';
+    }
+
+    let addDec = document.createTextNode(this.textContent);
+    displayValue.appendChild(addDec);
+  } else if(displayValue.textContent.includes('.') === false) {
+    let addDec = document.createTextNode(this.textContent);
+    displayValue.appendChild(addDec);
+  }
+}
+
 clear.addEventListener('click', () => {
   number1 = undefined;
   number2 = undefined;
@@ -80,7 +116,10 @@ clear.addEventListener('click', () => {
   displayValue.textContent = '';
   opSelected = false;
   equationReady = false;
+  lockNum1 = false;
 });
+
+decimal.addEventListener('click', addDecimal);
 
 equals.addEventListener('click', () => {
   if(equationReady === true) {
@@ -95,6 +134,7 @@ equals.addEventListener('click', () => {
     currentOp = undefined;
     opSelected = false;
     equationReady = false;
+    lockNum1 = true;
     }
   }
 });

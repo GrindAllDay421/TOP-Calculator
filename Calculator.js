@@ -93,8 +93,6 @@ clear.addEventListener('click', () => {
   lockNum1 = false;
 });
 
-decimal.addEventListener('click', addDecimal);
-
 equals.addEventListener('click', () => {
   if(equationReady === true) {
     number2 = Number(displayValue.textContent);

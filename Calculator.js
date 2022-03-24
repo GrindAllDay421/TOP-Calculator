@@ -32,7 +32,6 @@ let displayValue = document.querySelector('.displayText');
 const nums = document.querySelectorAll('.number');
 const equals = document.querySelector('.equals');
 const clear = document.querySelector('.clear');
-const decimal = document.querySelector('.decimal');
 let opSelected = false;
 let equationReady = false;
 let lockNum1 = false;
@@ -47,9 +46,7 @@ const numClicked = function() {
     opSelected = false;
   }
   if(lockNum1 === true) {
-    if(displayValue.textContent.includes('.') === false) {
-      displayValue.textContent = '';
-    }
+    displayValue.textContent = '';
     number1 = undefined;
     lockNum1 = false;
   }
@@ -84,29 +81,6 @@ const operatorClick = function() {
   if(number2 === undefined && currentOp === undefined) {
     currentOp = this.textContent;
   } 
-}
-
-const addDecimal = function() {
-  // if(displayValue.textContent.includes('.') === false) {
-  //   let addDec = document.createTextNode(this.textContent);
-  //   displayValue.appendChild(addDec);
-  // } else if(number1 !== undefined) {
-  //   displayValue.textContent = '';
-  //   let addDec = document.createTextNode(this.textContent);
-  //   displayValue.appendChild(addDec);
-  // }
-
-  if(number1 !== undefined) {
-    if(Number(displayValue.textContent) === number1) {
-      displayValue.textContent = '';
-    }
-
-    let addDec = document.createTextNode(this.textContent);
-    displayValue.appendChild(addDec);
-  } else if(displayValue.textContent.includes('.') === false) {
-    let addDec = document.createTextNode(this.textContent);
-    displayValue.appendChild(addDec);
-  }
 }
 
 clear.addEventListener('click', () => {

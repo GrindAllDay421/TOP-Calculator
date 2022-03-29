@@ -71,6 +71,7 @@ const operatorClick = function() {
       displayValue.textContent = 'nope';
     } else {
     number1 = operate(currentOp, number1, number2);
+
     displayValue.textContent = number1;
     number2 = undefined;
     equationReady = false;
@@ -81,6 +82,18 @@ const operatorClick = function() {
   if(number2 === undefined && currentOp === undefined) {
     currentOp = this.textContent;
   } 
+}
+
+const roundNum = function(num) {
+  let roundTo = 10 ** 5;
+  let roundedNum = Number(num);
+
+  number1 = Math.round(num * roundTo) / roundTo;
+}
+
+const getNumOfDecimal = function(num) { //function to get the length of numbers after the decimal in case rounding is needed
+  let totalNums = ("" + num).split('.')[1].length;
+  return totalNums;
 }
 
 clear.addEventListener('click', () => {
@@ -96,11 +109,14 @@ clear.addEventListener('click', () => {
 equals.addEventListener('click', () => {
   if(equationReady === true) {
     number2 = Number(displayValue.textContent);
-
     if(number2 === 0 && currentOp === '/') {
       displayValue.textContent = 'nope';
     } else {
     number1 = operate(currentOp, number1, number2);
+
+    if(("" + number1).includes('.') && getNumOfDecimal(number1) > 7) {
+      roundNum(number1);
+    }
     displayValue.textContent = number1;
     number2 = undefined;
     currentOp = undefined;

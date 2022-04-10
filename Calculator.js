@@ -32,6 +32,7 @@ let displayValue = document.querySelector('.displayText');
 const nums = document.querySelectorAll('.number');
 const equals = document.querySelector('.equals');
 const clear = document.querySelector('.clear');
+let displayLimitReached = false;
 let opSelected = false;
 let equationReady = false;
 let lockNum1 = false;
@@ -40,22 +41,30 @@ let number2;
 let currentOp;
 
 const numClicked = function() {
-  if(opSelected === true) {
-    displayValue.textContent = '';
-    equationReady = true;
-    opSelected = false;
+  if(displayLimitReached === false) {
+    if(opSelected === true) {
+      displayValue.textContent = '';
+      equationReady = true;
+      opSelected = false;
+    }
+    if(lockNum1 === true) {
+      displayValue.textContent = '';
+      number1 = undefined;
+      lockNum1 = false;
+    }
+    let addNum = document.createTextNode(this.textContent);
+    displayValue.appendChild(addNum);
+    if(displayValue.textContent.length === 24) {
+      displayLimitReached = true;
+    }
+  } else {
+
   }
-  if(lockNum1 === true) {
-    displayValue.textContent = '';
-    number1 = undefined;
-    lockNum1 = false;
-  }
-  let addNum = document.createTextNode(this.textContent);
-  displayValue.appendChild(addNum);
 } 
 
 const operatorClick = function() {
   opSelected = true;
+  displayLimitReached = false;
 
   if(lockNum1 === true) {
     lockNum1 = false;
@@ -104,6 +113,7 @@ clear.addEventListener('click', () => {
   opSelected = false;
   equationReady = false;
   lockNum1 = false;
+  displayLimitReached = false;
 });
 
 equals.addEventListener('click', () => {
